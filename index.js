@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 const puzzle1 = './puzzle1.txt';
-console.log(puzzle1);
+console.log('running puzzle');
 
 fs.readFile(`${puzzle1}`, (err, data) => {
 	if (err) {
@@ -10,18 +10,15 @@ fs.readFile(`${puzzle1}`, (err, data) => {
 	}
 	const directions = data.toString().split('');
 	let floor = 0;
-	directions.forEach((dir) => {
-		switch (dir) {
-			case '(':
-				floor++;
-				break;
-			case ')':
-				floor--;
-				break;
-			default:
-				return;
-				break;
+	let moveNum = 0;
+	directions.some((dir) => {
+		if (dir === '(') {
+			floor++;
+		} else if (dir === ')') {
+			floor--;
 		}
+		moveNum++;
+		return floor < 0;
 	});
-	console.log(floor);
+	console.log(moveNum);
 });
